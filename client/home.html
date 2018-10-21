@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <script>
+        function loadData(){
+            fetch(`/api/persons`)
+            .then(res => res.json())
+            .then(body => formatPersons(body.persons))     
+                .catch(err => console.log(`There is an error : ${err}`));
+        }
+
+        function formatPersons(personList) {
+            var personView = "";
+
+            for (person of personList) {
+                personView += `<label>Name:</label><label><b class="paint">${person.name}</b>,</label>
+                <label>Age: </label><label><b class="paint">${person.age}</b>,</label>
+                <label>is Male: </label><label><b class="paint">${person.isMale}</b>,</label>
+                <label>Country: </label><label><b class="paint">${person.country}</b>.</label><br\>`;
+            }
+            document.getElementById("body").innerHTML = personView;
+        }
+
+    </script>
+    <style>
+            b.paint {
+                color: brown;
+                padding-right:7px;
+                padding-left:3px;
+            }
+     </style>
+</head>
+
+<body onload="loadData()">
+    <p  id="body">
+
+    </p>
+</body>
+
+</html>
